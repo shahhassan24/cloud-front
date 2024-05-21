@@ -7,7 +7,8 @@ function Navbar() {
     { id: 0, link: "/", value: "Home" },
     { id: 2, link: "/get-all-blogs", value: "Blogs" },
     { id: 1, link: "/", value: "View Pets" },
-    { id: 3, link: "/add-blog", value: "Add Blog" },
+    // { id: 3, link: "/add-blog", value: "Add Blog" },
+    { id: 4, link: "/login", value: "Login" },
   ];
   return (
     <>

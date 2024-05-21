@@ -1,7 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from "react";
+import AjaxCall from "./ajax.service";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,48 +22,46 @@ const LoginPage = () => {
     // Here you can add your logic to handle login, like sending a request to your backend
     console.log("Email:", email);
     console.log("Password:", password);
+
+    const params = {
+      email: email,
+      password: password,
+    };
+
+    AjaxCall("POST", `api/user_auth/login`, params, false, false)
+      .then(function (response) {
+        console.log("this is response form", response);
+        if (response.error_code === 0) {
+          toast.success(response.message);
+          localStorage.setItem(
+            "x-access-token",
+            "Bearer " + response.data.token
+          );
+          navigate("/add-blog");
+        } else {
+          toast.error(response.message);
+        }
+      })
+      .catch(function (err, response) {
+        console.log("this is error message", err);
+        console.log(err);
+      });
   };
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <div style={{ width: "300px" }}>
+      <div className="flex justify-center items-center">
+        <div className="w-72">
           <form
-            style={{
-              backgroundColor: "#ffffff",
-              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-              borderRadius: "8px",
-              padding: "20px",
-            }}
+            className="bg-white shadow-lg rounded-lg p-5"
             onSubmit={handleSubmit}
           >
-            <h2 style={{ fontSize: "24px", marginBottom: "20px" }}>Login</h2>
-            <div style={{ marginBottom: "20px" }}>
-              <label
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                  marginBottom: "5px",
-                }}
-                htmlFor="email"
-              >
+            <h2 className="text-2xl mb-5">Login</h2>
+            <div className="mb-5">
+              <label className="block text-sm font-bold mb-2" htmlFor="email">
                 Email:
               </label>
               <input
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "4px",
-                  border: "1px solid #ccc",
-                  boxSizing: "border-box",
-                  fontSize: "14px",
-                }}
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 id="email"
                 type="email"
                 value={email}
@@ -67,26 +69,15 @@ const LoginPage = () => {
                 required
               />
             </div>
-            <div style={{ marginBottom: "20px" }}>
+            <div className="mb-5">
               <label
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                  marginBottom: "5px",
-                }}
+                className="block text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password:
               </label>
               <input
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "4px",
-                  border: "1px solid #ccc",
-                  boxSizing: "border-box",
-                  fontSize: "14px",
-                }}
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 id="password"
                 type="password"
                 value={password}
@@ -96,15 +87,7 @@ const LoginPage = () => {
             </div>
             <div>
               <button
-                style={{
-                  backgroundColor: "#007bff",
-                  color: "#ffffff",
-                  borderRadius: "4px",
-                  padding: "10px 20px",
-                  fontSize: "14px",
-                  cursor: "pointer",
-                  border: "none",
-                }}
+                className="w-full bg-blue-500 text-white rounded p-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="submit"
               >
                 Sign In

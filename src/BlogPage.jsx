@@ -11,6 +11,9 @@ const BlogPage = ({ title, content, isPublished, headerImage }) => {
   let { id } = useParams();
 
   console.log("this is blog id", id);
+  const handleAction = () => {
+    alert("Delete this!");
+  };
 
   useEffect(() => {
     AjaxCall("GET", `api/blogs/${id}`, {}, false, false)
@@ -48,6 +51,13 @@ const BlogPage = ({ title, content, isPublished, headerImage }) => {
         <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
         <div className="text-gray-700 leading-relaxed">{blog.content}</div>
       </div>
+
+      <button
+        className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        onClick={handleAction}
+      >
+        Delete this Blog
+      </button>
     </div>
   );
 };

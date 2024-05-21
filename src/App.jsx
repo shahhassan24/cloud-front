@@ -11,6 +11,7 @@ import AllBlogs from "./AllBlogs";
 import AddBlog from "./AddBlog";
 import Navbar from "./Navbar";
 import BlogPage from "./BlogPage";
+import { Toaster } from "react-hot-toast";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -27,6 +28,7 @@ const App = () => {
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
             <Navbar />
+            <Toaster position="bottom-right" reverseOrder={false} />
             <header>
               <Link to="/">Adopt Me!</Link>
             </header>

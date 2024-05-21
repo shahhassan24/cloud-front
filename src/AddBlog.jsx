@@ -26,10 +26,15 @@ const AddBlog = () => {
     console.log("Content:", content);
     console.log("Status:", status);
 
-    AjaxCall("GET", `api/blogs/addBlog`, {}, false, false)
+    const params = {
+      title: title,
+      content: content,
+      status: status === "publish" ? true : false,
+    };
+
+    AjaxCall("POST", `api/blogs/addBlog`, params, false, false)
       .then(function (response) {
         console.log("this is response form", response);
-        setBlog(response);
         toast.success(response.message);
       })
       .catch(function (err, response) {

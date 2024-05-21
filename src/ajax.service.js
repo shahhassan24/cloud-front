@@ -17,14 +17,14 @@ const AjaxCall = (type, api, params, is_cache, is_auth) => {
 
     //set api
     // var url = "https://ec2-54-211-21-110.compute-1.amazonaws.com/"
-    // var url = "http://localhost:4002/" + api;
-    var url = "http://139.59.77.50:4000/" + api;
+    var url = "http://localhost:4000/" + api;
+    // var url = "http://139.59.77.50:4000/" + api;
 
     axios({
       method: type,
       url: url,
       data: params,
-      headers: { Authorization: token },
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
         console.log("this is reponse", response);

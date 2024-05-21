@@ -22,13 +22,15 @@ const AllBlogs = () => {
   return (
     <div>
       {console.log("these are blgos", blogs)}
-      {blogs.map((item, index) => (
-        <BlogCard
-          title={item.title}
-          image={BlogImage}
-          link={`/blog/${item.id}`}
-        />
-      ))}
+      <div className="flex  flex-wrap">
+        {blogs.map((item, index) => (
+          <BlogCard
+            title={item.title}
+            image={BlogImage}
+            link={`/blog/${item.id}`}
+          />
+        ))}
+      </div>
     </div>
   );
 };
