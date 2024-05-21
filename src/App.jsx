@@ -9,7 +9,8 @@ import Login from "./Login";
 import "./style.css";
 import AllBlogs from "./AllBlogs";
 import AddBlog from "./AddBlog";
-
+import Navbar from "./Navbar";
+import BlogPage from "./BlogPage";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -25,6 +26,7 @@ const App = () => {
       <BrowserRouter>
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
+            <Navbar />
             <header>
               <Link to="/">Adopt Me!</Link>
             </header>
@@ -32,7 +34,9 @@ const App = () => {
               <Route path="/details/:id" element={<Details />} />
               <Route path="/" element={<SearchParams />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/get-all" element={<AllBlogs />} />
+              <Route path="/blog/:id" element={<BlogPage />} />
+
+              <Route path="/get-all-blogs" element={<AllBlogs />} />
               <Route path="/add-blog" element={<AddBlog />} />
             </Routes>
           </QueryClientProvider>

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from "react";
-
+import AjaxCall from "./ajax.service";
+import toast from "react-hot-toast";
 const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -24,6 +25,18 @@ const AddBlog = () => {
     console.log("Title:", title);
     console.log("Content:", content);
     console.log("Status:", status);
+
+    AjaxCall("GET", `api/blogs/addBlog`, {}, false, false)
+      .then(function (response) {
+        console.log("this is response form", response);
+        setBlog(response);
+        toast.success(response.message);
+      })
+      .catch(function (err, response) {
+        console.log("this is error message", err);
+
+        console.log(err);
+      });
   };
   return (
     <div>
@@ -31,8 +44,8 @@ const AddBlog = () => {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
+          alignItems: "",
+          // height: "100vh",
         }}
       >
         <div style={{ width: "300px" }}>
