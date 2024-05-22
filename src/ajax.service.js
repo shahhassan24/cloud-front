@@ -18,6 +18,7 @@ const AjaxCall = (type, api, params, is_cache, is_auth) => {
     //set api
     // var url = "https://ec2-54-211-21-110.compute-1.amazonaws.com/"
     // var url = "https://localhost:4000/" + api;
+
     var url = "https://139.59.77.50:4000/" + api;
 
     axios({
